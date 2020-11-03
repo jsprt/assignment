@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.3.5.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
+	id 'org.hidetake.swagger.generator' version '2.18.2'
 }
 
 group = 'org.jsprt'
@@ -13,12 +14,35 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
+	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'     // or OpenAPI Generator
+	implementation (
+			'org.springframework.boot:spring-boot-starter-web',
+			'io.swagger:swagger-annotations:1.5.20',
+			'javax.validation:validation-api:2.0.0.Final'
+	)
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 }
 
+swaggerSources {
+	apis {
+		inputFile = file('src/main/resources/openapi.yaml')
+		code {
+			language = 'spring'
+			outputDir = file("$buildDir/generated/api")
+			configFile = file("src/main/resources/openapi.json")
+//			components = ['models', 'apis'] //Used to generate RestControllers.
+			components = ['models']
+		}
+	}
+}
+
+compileJava.dependsOn(swaggerSources.apis.code)
+
+sourceSets {
+	main.java.srcDirs += "$buildDir/generated/api"
+}
 test {
 	useJUnitPlatform()
 }

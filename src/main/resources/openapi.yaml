@@ -1,0 +1,141 @@
+openapi: 3.0.1
+info:
+  title: Jaspreet's Assigment
+  description: 'Coding exercise for ANZ'
+  contact:
+    email: jaspreet.channa@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+
+paths:
+  /customers/{id}/accounts:
+    get:
+      tags:
+        - accounts
+      summary: Get all accounts for user
+      description: Get all accounts for user
+
+      operationId: getAccounts
+      parameters:
+        - name: id
+          in: path
+          description: 'Customer identifier number'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Accounts'
+        400:
+          description: Invalid Customer ID supplied
+          content: {}
+        404:
+          description: Customer not found
+          content: {}
+        405:
+          description: Customer not active
+          content: {}
+  /customers/{id}/accounts/{accountNumber}/transactions:
+    get:
+      tags:
+        - transactions
+      summary: Find all the transactions for an account
+      description: Find all the transactions for an account
+      operationId: getTransactions
+      parameters:
+        - name: id
+          in: path
+          description: 'Customer identifier number'
+          required: true
+          schema:
+            type: string
+        - name: accountNumber
+          in: path
+          description: 'Customer account number'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transactions'
+        400:
+          description: Invalid Customer/Account ID supplied
+          content: {}
+        404:
+          description: Customer/Account not found
+          content: {}
+        405:
+          description: Customer/Account not active
+
+components:
+  schemas:
+    Accounts:
+      type: object
+      properties:
+        number:
+          type: string
+          format: int32
+          example: "2322345454"
+        name:
+          type: string
+          example: "Some Account"
+        type:
+          type: string
+          enum:
+            - Savings
+            - Current
+            - Other
+          example: Savings
+        balanceDate:
+          type: string
+          example: "18/11/2018"
+        currency:
+          type: string
+          example: "INR"
+        availableOpeningBalance:
+          type: string
+          example: "3453.345"
+    Transactions:
+      type: object
+      properties:
+        number:
+          type: string
+          example: "123-2342-342"
+        name:
+          type: string
+          example: "Current Account"
+        valueDate:
+          type: string
+          example: "Jan. 12,2012"
+        currency:
+          type: string
+          example: "SGD"
+        debitAmount:
+          type: string
+          example: "24.12"
+        creditAmount:
+          type: string
+        type:
+          type: string
+          description: "Debit/Credit"
+          example: "Debit"
+          enum:
+            - Debit
+            - Credit
+        transactionNarrative:
+          type: string
+          example: "Share purchase"

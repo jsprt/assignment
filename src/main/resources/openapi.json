@@ -1,0 +1,7 @@
+{
+   "modelPackage": "org.jsprt.assignment.model",
+   "apiPackage" : "org.jsprt.assignment.controller",
+   "dateLibrary" : "java11",
+   "useTags" : "true"
+
+}
