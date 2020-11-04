@@ -15,11 +15,14 @@ repositories {
 
 dependencies {
 	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'     // or OpenAPI Generator
-	implementation (
+	implementation(
 			'org.springframework.boot:spring-boot-starter-web',
 			'io.swagger:swagger-annotations:1.5.20',
-			'javax.validation:validation-api:2.0.0.Final'
+			'javax.validation:validation-api:2.0.0.Final',
+			'org.projectlombok:lombok:1.18.4'
 	)
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -43,6 +46,7 @@ compileJava.dependsOn(swaggerSources.apis.code)
 sourceSets {
 	main.java.srcDirs += "$buildDir/generated/api"
 }
+
 test {
 	useJUnitPlatform()
 }
