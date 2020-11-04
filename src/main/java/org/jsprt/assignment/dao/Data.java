@@ -15,7 +15,13 @@ import static org.jsprt.assignment.domain.entity.TransactionType.Credit;
 public class Data {
     public static List<String> accounts = asList("11111111111", "22222222222", "33333333333");
 
-    public static List<Transaction> transactions(String account) {
+    /**
+     *
+     * @param customerId Not used
+     * @param account Not used
+     * @return
+     */
+    public static List<Transaction> transactions(String customerId, String account) {
         return IntStream.range(0, 10)
                 .mapToObj(value -> Transaction.builder()
                         .number(account)
@@ -28,7 +34,12 @@ public class Data {
                 .collect(toList());
     }
 
-    public static List<Account> accounts(String account) {
+    /**
+     *
+     * @param customerId Not Used
+     * @return
+     */
+    public static List<Account> accounts(String customerId) {
         return accounts.stream()
                 .map(s -> Account.builder()
                         .number(s)

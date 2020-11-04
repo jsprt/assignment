@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-@Data
 @Builder
 public class Transaction {
     private String number;
