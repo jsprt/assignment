@@ -71,7 +71,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Transactions'
+                  $ref: '#/components/schemas/Transaction'
         400:
           description: Invalid Customer/Account ID supplied
           content: {}
@@ -109,7 +109,7 @@ components:
         availableOpeningBalance:
           type: string
           example: "3453.345"
-    Transactions:
+    Transaction:
       type: object
       properties:
         number:

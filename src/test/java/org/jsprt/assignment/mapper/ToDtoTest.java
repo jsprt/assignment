@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.regex.Pattern;
 
 import static org.jsprt.assignment.TestFixture.getAccount;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.jsprt.assignment.TestFixture.getTransaction;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ToDtoTest {
     @Test
@@ -23,5 +23,20 @@ class ToDtoTest {
         assertEquals(accountDomain.getCurrency(), accountDto.getCurrency());
         assertEquals(accountDomain.getType().name().toLowerCase(), accountDto.getType().name().toLowerCase());
         assertTrue(datePattern.matcher(accountDto.getBalanceDate()).find());
+    }
+
+    @Test
+    void testTransactionsConversion() {
+        String testAccount = "11122233344";
+        final var toDto = new ToDto();
+        final var transactionDomain = getTransaction(testAccount);
+        final var transactionDto = toDto.convert(transactionDomain);
+       assertEquals(transactionDomain.getName(), transactionDto.getName());
+       assertEquals(transactionDomain.getNumber(), transactionDto.getNumber());
+       assertEquals(transactionDomain.getCreditAmount(), transactionDto.getCreditAmount());
+       assertEquals(transactionDomain.getNarrative(), transactionDto.getTransactionNarrative());
+       assertEquals(transactionDomain.getType().name().toLowerCase(), transactionDto.getType().name().toLowerCase());
+       assertNotNull(transactionDomain.getDate());
+       assertEquals(transactionDomain.getCurrency(), transactionDto.getCurrency());
     }
 }
