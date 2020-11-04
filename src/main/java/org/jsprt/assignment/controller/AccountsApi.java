@@ -1,6 +1,8 @@
 package org.jsprt.assignment.controller;
 
 import io.swagger.annotations.*;
+import org.jsprt.assignment.service.AppService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,6 +20,9 @@ import java.util.List;
 @RestController
 public class AccountsApi {
 
+    @Autowired
+    private AppService appService;
+
     @ApiOperation(value = "Get all accounts for user", nickname = "getAccounts", notes = "Get all accounts for user", response = org.jsprt.assignment.model.Account.class, responseContainer = "List", tags = {"accounts",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = org.jsprt.assignment.model.Account.class, responseContainer = "List"),
@@ -28,7 +33,7 @@ public class AccountsApi {
             produces = {"application/json"},
             method = RequestMethod.GET)
     public ResponseEntity<List<org.jsprt.assignment.model.Account>> getAccounts(@ApiParam(value = "Customer identifier number", required = true) @PathVariable("id") String id) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(appService.retrieveAccounts(id), HttpStatus.OK);
     }
 
 }

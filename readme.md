@@ -23,5 +23,9 @@ Prerequisite - Java 11 available on Classpath.
 
 ### How to verify 
 ```
-curl -x 
+Accounts API
+curl -X GET http://localhost:8080/customers/234523/accounts 
+
+Transaction API
+curl -X GET http://localhost:8080/customers/234523/accounts/4353/transactions
 ```

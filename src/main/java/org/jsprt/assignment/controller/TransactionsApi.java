@@ -2,6 +2,8 @@ package org.jsprt.assignment.controller;
 
 import io.swagger.annotations.*;
 import org.jsprt.assignment.model.Transaction;
+import org.jsprt.assignment.service.AppService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +21,9 @@ import java.util.List;
 @RestController
 public class TransactionsApi {
 
+    @Autowired
+    private AppService appService;
+
     @ApiOperation(value = "Find all the transactions for an account", nickname = "getTransactions", notes = "Find all the transactions for an account", response = Transaction.class, responseContainer = "List", tags = {"transactions",})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "successful operation", response = Transaction.class, responseContainer = "List"),
@@ -29,7 +34,7 @@ public class TransactionsApi {
             produces = {"application/json"},
             method = RequestMethod.GET)
     public ResponseEntity<List<Transaction>> getTransactions(@ApiParam(value = "Customer identifier number", required = true) @PathVariable("id") String id, @ApiParam(value = "Customer account number", required = true) @PathVariable("accountNumber") String accountNumber) {
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<>(appService.retrieveTransactions(id, accountNumber), HttpStatus.OK);
     }
 
 }
