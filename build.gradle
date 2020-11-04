@@ -1,8 +1,8 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.5.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 	id 'org.hidetake.swagger.generator' version '2.18.2'
+	id 'org.springframework.boot' version '2.3.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 }
 
 group = 'org.jsprt'
@@ -14,13 +14,14 @@ repositories {
 }
 
 dependencies {
-	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'     // or OpenAPI Generator
 	implementation(
 			'org.springframework.boot:spring-boot-starter-web',
 			'io.swagger:swagger-annotations:1.5.20',
 			'javax.validation:validation-api:2.0.0.Final',
-			'org.projectlombok:lombok:1.18.4'
+			'org.projectlombok:lombok:1.18.12'
 	)
+	swaggerCodegen 'org.openapitools:openapi-generator-cli:3.3.4'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testCompileOnly 'org.projectlombok:lombok:1.18.12'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
@@ -35,7 +36,6 @@ swaggerSources {
 			language = 'spring'
 			outputDir = file("$buildDir/generated/api")
 			configFile = file("src/main/resources/openapi.json")
-//			components = ['models', 'apis'] //Used to generate RestControllers.
 			components = ['models']
 		}
 	}
