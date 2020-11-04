@@ -1,6 +1,7 @@
 package org.jsprt.assignment.dao;
 
 import org.jsprt.assignment.domain.entity.Account;
+import org.jsprt.assignment.domain.entity.AccountType;
 import org.jsprt.assignment.domain.entity.Transaction;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.stream.IntStream;
 
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
+import static org.jsprt.assignment.domain.entity.AccountType.Savings;
 import static org.jsprt.assignment.domain.entity.TransactionType.Credit;
 
 public class Data {
@@ -45,6 +47,7 @@ public class Data {
                         .number(s)
                         .currency("SGD")
                         .name("AC-" + s.substring(9))
+                        .type(Savings)
                         .openingBalance(new Random().nextDouble() + "")
                         .build()
                 ).collect(toList());

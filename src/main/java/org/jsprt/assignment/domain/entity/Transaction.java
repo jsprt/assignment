@@ -7,11 +7,11 @@ import java.util.Date;
 
 @Builder
 public class Transaction {
-    private String number;
-    private String name;
     private Date date;
+    private String name;
+    private String number;
+    private String narrative;
     private String debitAmount;
     private String creditAmount;
     private TransactionType type;
-    private String narrative;
 }

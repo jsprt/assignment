@@ -33,7 +33,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Accounts'
+                  $ref: '#/components/schemas/Account'
         400:
           description: Invalid Customer ID supplied
           content: {}
@@ -83,7 +83,7 @@ paths:
 
 components:
   schemas:
-    Accounts:
+    Account:
       type: object
       properties:
         number:
